@@ -5,6 +5,7 @@ import { HeatmapLayer } from "@deck.gl/aggregation-layers";
 import { Map } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Plant, ViewMode, MapStyle } from "../types";
+import type { PickingInfo } from "@deck.gl/core";
 
 const MAP_STYLES: Record<MapStyle, string> = {
   light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -16,7 +17,7 @@ export function MapPanel({ data, viewMode, mapStyle, onHover }: {
   data: Plant[];
   viewMode: ViewMode;
   mapStyle: MapStyle;
-  onHover: (info: any) => void;
+  onHover: (info: PickingInfo<Plant>) => void;
 }) {
   const layers = useMemo(() => {
     const scatter = new ScatterplotLayer<Plant>({

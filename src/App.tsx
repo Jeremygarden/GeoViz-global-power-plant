@@ -16,8 +16,14 @@ export default function App() {
   const [hover, setHover] = useState<{ plant: Plant | null; x: number; y: number }>({ plant: null, x: 0, y: 0 });
 
   useEffect(() => {
-    loadPlants().then(setPlants).catch(console.error);
-  }, []);
+    loadPlants()
+      .then((data) => {
+        setPlants(data);
+        const max = data.length ? Math.max(...data.map((p) => p.capacity_mw)) : 5000;
+        setFilters((prev) => ({ ...prev, capacityRange: [0, max] }));
+      })
+      .catch(console.error);
+  }, [setFilters]);
 
   const filtered = useMemo(() => filterPlants(plants, filters), [plants, filters]);
   const metrics = useMemo(() => computeMetrics(filtered), [filtered]);
