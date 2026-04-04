@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-[#0b0f14] text-white;
+  font-family: Inter, ui-sans-serif, system-ui;
+}
+
+.cyber-panel {
+  @apply rounded-2xl border border-[#2ef3c433] bg-[#0a1119cc] shadow-[0_0_30px_rgba(53,243,196,0.15)];
+}
+
+.cyber-grid {
+  background-image: linear-gradient(rgba(53,243,196,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(76,195,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
