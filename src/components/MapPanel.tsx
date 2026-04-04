@@ -39,7 +39,7 @@ export function MapPanel({ data, viewMode, mapStyle, onHover }: {
   }, [data, viewMode, onHover]);
 
   return (
-    <div className="cyber-panel h-[520px] w-full">
+    <div className="cyber-panel h-[520px] w-full relative overflow-hidden">
       <DeckGL
         initialViewState={{ longitude: 0, latitude: 20, zoom: 1.3 }}
         controller
