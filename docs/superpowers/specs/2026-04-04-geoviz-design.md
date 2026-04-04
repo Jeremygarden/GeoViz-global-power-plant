@@ -65,8 +65,9 @@ Source: **Global Power Plant Database** (CSV/GeoJSON). Preprocess on client:
 - **Main**: Map canvas + view mode & basemap toggle
 
 ## 7) Style & UX
-- Minimal, data‑first aesthetic
-- Use Tailwind tokens to keep consistent palette
+- **Cyber‑tech** vibe (neon teal/blue accents, grid background, soft glow, glassy panels)
+- Dark‑leaning UI with high‑contrast KPI cards and subtle motion cues
+- Map canvas dominates; sidebar narrow on the right
 - Responsive layout for laptop/mobile
 
 ## 8) Error Handling
