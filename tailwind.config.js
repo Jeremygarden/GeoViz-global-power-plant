@@ -5,17 +5,9 @@ export default {
     extend: {
       colors: {
         cyber: {
-          50: "#edf9ff",
-          100: "#d6f1ff",
-          200: "#a6e1ff",
-          300: "#6fcaff",
-          400: "#34abff",
-          500: "#0c86ff",
-          600: "#0066e6",
-          700: "#004bb4",
-          800: "#00347d",
-          900: "#001b40",
-          950: "#0b0f1f",
+          base: "#0b0f14",
+          glow: "#35f3c4",
+          blue: "#4cc3ff",
         },
       },
     },
