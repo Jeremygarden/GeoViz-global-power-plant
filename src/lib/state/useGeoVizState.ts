@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Filters, MapStyle, ViewMode } from "../../types";
+import type { Filters, MapStyle, ViewMode } from "../../types";
 
 export function useGeoVizState() {
   const [filters, setFilters] = useState<Filters>({

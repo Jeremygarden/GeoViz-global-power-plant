@@ -1,4 +1,4 @@
-import { Plant } from "../../types";
+import type { Plant } from "../../types";
 
 export function computeMetrics(plants: Plant[]) {
   const totalCapacity = plants.reduce((sum, p) => sum + p.capacity_mw, 0);
