@@ -1,4 +1,4 @@
-import { Filters } from "../types";
+import type { Filters } from "../types";
 
 export function SidebarFilters({ filters, onChange, energyOptions, countryOptions }: {
   filters: Filters;

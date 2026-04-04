@@ -1,4 +1,4 @@
-import { Plant } from "../../types";
+import type { Plant } from "../../types";
 
 const CSV_URL = "https://raw.githubusercontent.com/wri/global-power-plant-database/master/global_power_plant_database.csv";
 

@@ -1,4 +1,4 @@
-import { Filters, Plant } from "../../types";
+import type { Filters, Plant } from "../../types";
 
 export function filterPlants(plants: Plant[], filters: Filters): Plant[] {
   const [minCap, maxCap] = filters.capacityRange;

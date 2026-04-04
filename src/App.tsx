@@ -8,7 +8,7 @@ import { SidebarFilters } from "./components/SidebarFilters";
 import { ViewToggles } from "./components/ViewToggles";
 import { MapPanel } from "./components/MapPanel";
 import { Tooltip } from "./components/Tooltip";
-import { Plant } from "./types";
+import type { Plant } from "./types";
 
 export default function App() {
   const { filters, setFilters, viewMode, setViewMode, mapStyle, setMapStyle } = useGeoVizState();

@@ -1,4 +1,4 @@
-import { MapStyle, ViewMode } from "../types";
+import type { MapStyle, ViewMode } from "../types";
 
 export function ViewToggles({ viewMode, setViewMode, mapStyle, setMapStyle }: {
   viewMode: ViewMode;

@@ -1,4 +1,4 @@
-import { Plant } from "../types";
+import type { Plant } from "../types";
 
 export function Tooltip({ plant, x, y }: { plant: Plant | null; x: number; y: number }) {
   if (!plant) return null;
