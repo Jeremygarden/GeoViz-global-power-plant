@@ -1,7 +1,7 @@
 import type { Plant } from "../../types";
 import Papa from "papaparse";
 
-const CSV_URL = "https://raw.githubusercontent.com/wri/global-power-plant-database/master/output_database/global_power_plant_database.csv";
+const CSV_URL = "https://cdn.jsdelivr.net/gh/wri/global-power-plant-database@master/output_database/global_power_plant_database.csv";
 const CACHE_KEY = "geoviz_plants_cache";
 const CACHE_TTL = 24 * 60 * 60 * 1000;
 
