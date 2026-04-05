@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { Filters } from "../types";
 
 export function SidebarFilters({ filters, onChange, energyOptions, countryOptions }: {
@@ -7,6 +7,8 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
   energyOptions: string[];
   countryOptions: string[];
 }) {
+  const [countrySearch, setCountrySearch] = useState("");
+
   const toggle = (key: "energyTypes" | "countries", value: string) => {
     const list = filters[key];
     const next = list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
@@ -19,38 +21,75 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
     debounceTimer.current = setTimeout(() => onChange({ ...filters, capacityRange: val }), 300);
   };
 
+  const filteredCountries = countryOptions.filter((c) =>
+    c.toLowerCase().includes(countrySearch.toLowerCase())
+  );
+
+  const [capMax, setCapMax] = useState(filters.capacityRange[1]);
+
   return (
-    <div className="cyber-panel p-4 space-y-4">
+    <div className="cyber-panel p-4 space-y-5">
+      {/* Energy Type */}
       <div>
-        <div className="text-xs text-cyber-glow">Energy Type</div>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80 mb-2">Energy Type</div>
+        <div className="flex flex-wrap gap-2">
           {energyOptions.map((e) => (
             <button key={e} onClick={() => toggle("energyTypes", e)}
-              className={`rounded-full px-3 py-1 text-xs border ${filters.energyTypes.includes(e) ? "border-cyber-glow text-cyber-glow" : "border-white/10 text-white/70"}`}>
+              className={`rounded-full px-3 py-1 text-xs border transition-colors ${
+                filters.energyTypes.includes(e)
+                  ? "border-cyber-glow text-cyber-glow bg-cyber-glow/10"
+                  : "border-white/10 text-white/60 hover:border-white/30 hover:text-white/80"
+              }`}>
               {e}
             </button>
           ))}
         </div>
       </div>
+
+      {/* Capacity slider */}
       <div>
-        <div className="text-xs text-cyber-glow">Capacity (MW)</div>
+        <div className="flex justify-between items-center mb-2">
+          <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80">Capacity</div>
+          <div className="text-[11px] text-white/50 tabular-nums">0 – {capMax.toLocaleString()} MW</div>
+        </div>
         <input
           type="range"
           min={0}
-          max={5000}
-          value={filters.capacityRange[1]}
-          onChange={(e) => handleCapacityChange([0, Number(e.target.value)])}
-          className="w-full"
+          max={filters.capacityRange[1] > 5000 ? filters.capacityRange[1] : 5000}
+          value={capMax}
+          onChange={(e) => {
+            const v = Number(e.target.value);
+            setCapMax(v);
+            handleCapacityChange([0, v]);
+          }}
+          className="w-full accent-cyber-glow"
         />
       </div>
+
+      {/* Country */}
       <div>
-        <div className="text-xs text-cyber-glow">Country</div>
-        <div className="mt-2 max-h-40 overflow-auto space-y-1">
-          {countryOptions.map((c) => (
-            <button key={c} onClick={() => toggle("countries", c)} className={`block w-full text-left text-xs ${filters.countries.includes(c) ? "text-cyber-blue" : "text-white/70"}`}>
+        <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80 mb-2">Country</div>
+        <input
+          type="text"
+          placeholder="Search countries..."
+          value={countrySearch}
+          onChange={(e) => setCountrySearch(e.target.value)}
+          className="w-full mb-2 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs text-white/80 placeholder-white/30 focus:border-cyber-glow/50 focus:outline-none"
+        />
+        <div className="max-h-40 overflow-auto space-y-0.5 pr-1">
+          {filteredCountries.map((c) => (
+            <button key={c} onClick={() => toggle("countries", c)}
+              className={`block w-full text-left rounded px-1.5 py-0.5 text-xs transition-colors ${
+                filters.countries.includes(c)
+                  ? "text-cyber-blue bg-cyber-blue/10"
+                  : "text-white/60 hover:text-white/90 hover:bg-white/5"
+              }`}>
               {c}
             </button>
           ))}
+          {filteredCountries.length === 0 && (
+            <div className="text-xs text-white/30 px-1.5 py-1">No match</div>
+          )}
         </div>
       </div>
     </div>
