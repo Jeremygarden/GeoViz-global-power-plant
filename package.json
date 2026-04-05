@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "test:run": "vitest run",
-    "deploy": "gh-pages -d dist"
+    "test:run": "vitest run"
   },
   "dependencies": {
     "@deck.gl/aggregation-layers": "^9.2.11",
