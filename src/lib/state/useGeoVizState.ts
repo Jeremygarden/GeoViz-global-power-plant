@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type { Filters, MapStyle, ViewMode } from "../../types";
 
 export function useGeoVizState() {
@@ -10,17 +10,5 @@ export function useGeoVizState() {
   const [viewMode, setViewMode] = useState<ViewMode>("scatter");
   const [mapStyle, setMapStyle] = useState<MapStyle>("dark");
 
-  const state = useMemo(
-    () => ({
-      filters,
-      setFilters,
-      viewMode,
-      setViewMode,
-      mapStyle,
-      setMapStyle,
-    }),
-    [filters, viewMode, mapStyle]
-  );
-
-  return state;
+  return { filters, setFilters, viewMode, setViewMode, mapStyle, setMapStyle };
 }
