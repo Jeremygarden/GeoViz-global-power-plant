@@ -7,8 +7,8 @@ export function KpiRow({ totalCapacity, plantCount, countryCount }: { totalCapac
         { label: "Countries", value: countryCount.toLocaleString() },
       ].map((k) => (
         <div key={k.label} className="cyber-panel p-4">
-          <div className="text-xs text-cyber-glow">{k.label}</div>
-          <div className="mt-2 text-2xl font-semibold">{k.value}</div>
+          <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80">{k.label}</div>
+          <div className="mt-2 text-2xl font-bold tabular-nums tracking-tight">{k.value}</div>
         </div>
       ))}
     </div>

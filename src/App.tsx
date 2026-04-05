@@ -51,12 +51,12 @@ export default function App() {
       )}
       <KpiRow {...metrics} />
       <div className="flex items-start gap-6">
-        <div className="flex-1 space-y-3">
+        <div className="w-64 shrink-0">
+          <SidebarFilters filters={filters} onChange={setFilters} energyOptions={energyOptions} countryOptions={countryOptions} />
+        </div>
+        <div className="flex-1 min-w-0 space-y-3">
           <ViewToggles viewMode={viewMode} setViewMode={setViewMode} mapStyle={mapStyle} setMapStyle={setMapStyle} />
           <MapPanel data={filtered} viewMode={viewMode} mapStyle={mapStyle} onHover={handleHover} />
-        </div>
-        <div className="w-64">
-          <SidebarFilters filters={filters} onChange={setFilters} energyOptions={energyOptions} countryOptions={countryOptions} />
         </div>
       </div>
       <Tooltip plant={hover.plant} x={hover.x} y={hover.y} />
