@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Filters } from "../types";
 
 export function SidebarFilters({ filters, onChange, energyOptions, countryOptions }: {
@@ -8,6 +8,13 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
   countryOptions: string[];
 }) {
   const [countrySearch, setCountrySearch] = useState("");
+  const [localMin, setLocalMin] = useState(filters.capacityRange[0]);
+  const [localMax, setLocalMax] = useState(filters.capacityRange[1]);
+
+  useEffect(() => {
+    setLocalMin(filters.capacityRange[0]);
+    setLocalMax(filters.capacityRange[1]);
+  }, [filters.capacityRange[0], filters.capacityRange[1]]);
 
   const toggle = (key: "energyTypes" | "countries", value: string) => {
     const list = filters[key];
@@ -16,16 +23,18 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
   };
 
   const debounceTimer = useRef<ReturnType<typeof setTimeout>>();
-  const handleCapacityChange = (val: [number, number]) => {
+  const commitRange = (min: number, max: number) => {
     clearTimeout(debounceTimer.current);
-    debounceTimer.current = setTimeout(() => onChange({ ...filters, capacityRange: val }), 300);
+    debounceTimer.current = setTimeout(() => {
+      onChange({ ...filters, capacityRange: [min, max] });
+    }, 300);
   };
+
+  const sliderMax = Math.max(localMax, filters.capacityRange[1], 5000);
 
   const filteredCountries = countryOptions.filter((c) =>
     c.toLowerCase().includes(countrySearch.toLowerCase())
   );
-
-  const [capMax, setCapMax] = useState(filters.capacityRange[1]);
 
   return (
     <div className="cyber-panel p-4 space-y-5">
@@ -46,24 +55,46 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
         </div>
       </div>
 
-      {/* Capacity slider */}
+      {/* Capacity double-ended slider */}
       <div>
         <div className="flex justify-between items-center mb-2">
           <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80">Capacity</div>
-          <div className="text-[11px] text-white/50 tabular-nums">0 – {capMax.toLocaleString()} MW</div>
+          <div className="text-[11px] text-white/50 tabular-nums">
+            {localMin.toLocaleString()} – {localMax.toLocaleString()} MW
+          </div>
         </div>
-        <input
-          type="range"
-          min={0}
-          max={filters.capacityRange[1] > 5000 ? filters.capacityRange[1] : 5000}
-          value={capMax}
-          onChange={(e) => {
-            const v = Number(e.target.value);
-            setCapMax(v);
-            handleCapacityChange([0, v]);
-          }}
-          className="w-full accent-cyber-glow"
-        />
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-white/40 w-6">Min</span>
+            <input
+              type="range"
+              min={0}
+              max={sliderMax}
+              value={localMin}
+              onChange={(e) => {
+                const v = Math.min(Number(e.target.value), localMax - 1);
+                setLocalMin(v);
+                commitRange(v, localMax);
+              }}
+              className="flex-1 accent-cyber-glow"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-white/40 w-6">Max</span>
+            <input
+              type="range"
+              min={0}
+              max={sliderMax}
+              value={localMax}
+              onChange={(e) => {
+                const v = Math.max(Number(e.target.value), localMin + 1);
+                setLocalMax(v);
+                commitRange(localMin, v);
+              }}
+              className="flex-1 accent-cyber-glow"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Country */}
