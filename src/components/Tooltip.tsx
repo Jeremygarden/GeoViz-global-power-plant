@@ -1,6 +1,8 @@
 import type { Plant } from "../types";
+import { useLang } from "../lib/i18n";
 
 export function Tooltip({ plant, x, y }: { plant: Plant | null; x: number; y: number }) {
+  const { t } = useLang();
   if (!plant) return null;
   return (
     <div
@@ -11,7 +13,7 @@ export function Tooltip({ plant, x, y }: { plant: Plant | null; x: number; y: nu
       <div>
         {plant.country} · {plant.primary_fuel}
       </div>
-      <div>{plant.capacity_mw} MW</div>
+      <div>{plant.capacity_mw} {t.tooltip.capacity}</div>
     </div>
   );
 }

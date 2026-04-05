@@ -3,6 +3,7 @@ import { loadPlants } from "./lib/data/loadPlants";
 import { filterPlants } from "./lib/data/filters";
 import { computeMetrics } from "./lib/data/metrics";
 import { useGeoVizState } from "./lib/state/useGeoVizState";
+import { useLang } from "./lib/i18n";
 import { KpiRow } from "./components/KpiRow";
 import { SidebarFilters } from "./components/SidebarFilters";
 import { ViewToggles } from "./components/ViewToggles";
@@ -12,6 +13,7 @@ import type { PickingInfo } from "@deck.gl/core";
 import type { Plant } from "./types";
 
 export default function App() {
+  const { t } = useLang();
   const { filters, setFilters, viewMode, setViewMode, mapStyle, setMapStyle } = useGeoVizState();
   const [plants, setPlants] = useState<Plant[]>([]);
   const [hover, setHover] = useState<{ plant: Plant | null; x: number; y: number }>({ plant: null, x: 0, y: 0 });
@@ -46,7 +48,7 @@ export default function App() {
     <div className="relative min-h-screen p-6 space-y-6">
       {loadState === "error" && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm text-red-700">
-          数据加载失败，请刷新页面重试
+          {t.error}
         </div>
       )}
       <KpiRow {...metrics} />
@@ -76,7 +78,7 @@ export default function App() {
                 d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
               />
             </svg>
-            加载中...
+            {t.loading}
           </div>
         </div>
       )}

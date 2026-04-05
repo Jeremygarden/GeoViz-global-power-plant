@@ -1,10 +1,13 @@
+import { useLang } from "../lib/i18n";
+
 export function KpiRow({ totalCapacity, plantCount, countryCount }: { totalCapacity: number; plantCount: number; countryCount: number }) {
+  const { t } = useLang();
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       {[
-        { label: "Total Capacity", value: `${Math.round(totalCapacity).toLocaleString()} MW` },
-        { label: "Plant Count", value: plantCount.toLocaleString() },
-        { label: "Countries", value: countryCount.toLocaleString() },
+        { label: t.kpi.totalCapacity, value: `${Math.round(totalCapacity).toLocaleString()} MW` },
+        { label: t.kpi.plantCount, value: plantCount.toLocaleString() },
+        { label: t.kpi.countries, value: countryCount.toLocaleString() },
       ].map((k) => (
         <div key={k.label} className="cyber-panel p-4">
           <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80">{k.label}</div>

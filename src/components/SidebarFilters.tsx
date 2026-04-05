@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Filters } from "../types";
+import { useLang } from "../lib/i18n";
 
 export function SidebarFilters({ filters, onChange, energyOptions, countryOptions }: {
   filters: Filters;
@@ -7,6 +8,7 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
   energyOptions: string[];
   countryOptions: string[];
 }) {
+  const { t } = useLang();
   const [countrySearch, setCountrySearch] = useState("");
   const [localMin, setLocalMin] = useState(filters.capacityRange[0]);
   const [localMax, setLocalMax] = useState(filters.capacityRange[1]);
@@ -40,7 +42,7 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
     <div className="cyber-panel p-4 space-y-5">
       {/* Energy Type */}
       <div>
-        <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80 mb-2">Energy Type</div>
+        <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80 mb-2">{t.filters.energyType}</div>
         <div className="flex flex-wrap gap-2">
           {energyOptions.map((e) => (
             <button key={e} onClick={() => toggle("energyTypes", e)}
@@ -58,14 +60,14 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
       {/* Capacity double-ended slider */}
       <div>
         <div className="flex justify-between items-center mb-2">
-          <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80">Capacity</div>
+          <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80">{t.filters.capacity}</div>
           <div className="text-[11px] text-white/50 tabular-nums">
             {localMin.toLocaleString()} – {localMax.toLocaleString()} MW
           </div>
         </div>
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-white/40 w-6">Min</span>
+            <span className="text-[10px] text-white/40 w-6">{t.filters.min}</span>
             <input
               type="range"
               min={0}
@@ -80,7 +82,7 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
             />
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-white/40 w-6">Max</span>
+            <span className="text-[10px] text-white/40 w-6">{t.filters.max}</span>
             <input
               type="range"
               min={0}
@@ -99,10 +101,10 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
 
       {/* Country */}
       <div>
-        <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80 mb-2">Country</div>
+        <div className="text-[11px] uppercase tracking-widest text-cyber-glow/80 mb-2">{t.filters.country}</div>
         <input
           type="text"
-          placeholder="Search countries..."
+          placeholder={t.filters.searchCountries}
           value={countrySearch}
           onChange={(e) => setCountrySearch(e.target.value)}
           className="w-full mb-2 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs text-white/80 placeholder-white/30 focus:border-cyber-glow/50 focus:outline-none"
@@ -119,7 +121,7 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
             </button>
           ))}
           {filteredCountries.length === 0 && (
-            <div className="text-xs text-white/30 px-1.5 py-1">No match</div>
+            <div className="text-xs text-white/30 px-1.5 py-1">{t.filters.noMatch}</div>
           )}
         </div>
       </div>
