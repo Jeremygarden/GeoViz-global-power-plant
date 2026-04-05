@@ -51,7 +51,7 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
                   ? "border-cyber-glow text-cyber-glow bg-cyber-glow/10"
                   : "border-white/10 text-white/60 hover:border-white/30 hover:text-white/80"
               }`}>
-              {e}
+              {t.fuelTypes[e] ?? e}
             </button>
           ))}
         </div>

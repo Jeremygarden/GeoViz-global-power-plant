@@ -31,6 +31,23 @@ export const translations = {
     tooltip: {
       capacity: "MW",
     },
+    fuelTypes: {
+      Biomass: "Biomass",
+      Coal: "Coal",
+      Cogeneration: "Cogeneration",
+      Gas: "Gas",
+      Geothermal: "Geothermal",
+      Hydro: "Hydro",
+      Nuclear: "Nuclear",
+      Oil: "Oil",
+      Other: "Other",
+      Petcoke: "Petcoke",
+      Solar: "Solar",
+      Storage: "Storage",
+      Waste: "Waste",
+      "Wave and Tidal": "Wave and Tidal",
+      Wind: "Wind",
+    } as Record<string, string>,
   },
   zh: {
     kpi: {
@@ -59,6 +76,23 @@ export const translations = {
     tooltip: {
       capacity: "兆瓦",
     },
+    fuelTypes: {
+      Biomass: "生物质能",
+      Coal: "煤炭",
+      Cogeneration: "热电联产",
+      Gas: "天然气",
+      Geothermal: "地热能",
+      Hydro: "水力",
+      Nuclear: "核能",
+      Oil: "石油",
+      Other: "其他",
+      Petcoke: "石油焦",
+      Solar: "太阳能",
+      Storage: "储能",
+      Waste: "废弃物",
+      "Wave and Tidal": "波浪与潮汐",
+      Wind: "风能",
+    } as Record<string, string>,
   },
 } as const;
 
@@ -89,6 +123,7 @@ type Translations = {
   tooltip: {
     capacity: string;
   };
+  fuelTypes: Record<string, string>;
 };
 
 const LangContext = createContext<{
