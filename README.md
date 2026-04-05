@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+# GeoViz — Global Power Plant Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive map dashboard visualizing the [Global Power Plant Database](https://github.com/wri/global-power-plant-database) — ~35,000 power plants worldwide, filterable by energy type, country, and capacity.
 
-Currently, two official plugins are available:
+**Live:** [Deployed on Vercel](https://github.com/Jeremygarden/GeoViz-global-power-plant)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Scatterplot / Heatmap toggle** — switch between point-level detail and density view
+- **Map styles** — Light, Dark, Voyager
+- **Live KPI row** — total capacity (MW), plant count, country count, all reactive to filters
+- **Sidebar filters** — energy type multi-select, country search + select, capacity range slider
+- **Hover tooltip** — plant name, country, fuel type, capacity on hover
+- **Loading / error states** — graceful handling of CSV fetch
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Layer | Library |
+|-------|---------|
+| Framework | React 18 + TypeScript |
+| Map / WebGL | deck.gl 9 + MapLibre GL |
+| Data viz | D3 (scales, color mapping) |
+| Styling | TailwindCSS 3 |
+| Build | Vite 8 |
+| Deploy | Vercel |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Data Source
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+[Global Power Plant Database](https://github.com/wri/global-power-plant-database) by World Resources Institute — open data, CC BY 4.0.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Loaded client-side at runtime from the WRI GitHub raw CSV (~35k rows, ~4MB).
+
+## Project Structure
+
+```
+src/
+├── App.tsx                    # Root layout, data loading, state wiring
+├── types.ts                   # Plant, Filters, ViewMode, MapStyle types
+├── components/
+│   ├── KpiRow.tsx             # Top KPI cards (capacity / count / countries)
+│   ├── MapPanel.tsx           # deck.gl DeckGL + MapLibre map
+│   ├── SidebarFilters.tsx     # Energy type, country search, capacity slider
+│   ├── ViewToggles.tsx        # Scatter/Heatmap + map style toggles
+│   └── Tooltip.tsx            # Hover tooltip
+└── lib/
+    ├── data/
+    │   ├── loadPlants.ts      # CSV fetch + PapaParse
+    │   ├── filters.ts         # filterPlants() — pure filter pipeline
+    │   └── metrics.ts         # computeMetrics() — KPI aggregation
+    └── state/
+        └── useGeoVizState.ts  # Centralized filter/view/style state
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+```bash
+npm run build       # production build
+npm run test:run    # run tests once
+npm run test        # watch mode
+```
+
+## Design
+
+Cyber / Retro-Futuristic Terminal aesthetic. Dark base `#0b0f14`, primary glow `#35f3c4`, secondary blue `#4cc3ff`.
+
+See `DESIGN.md` for the full design system (font choices, color tokens, spacing, motion).
+
+## License
+
+MIT
