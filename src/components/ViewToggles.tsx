@@ -14,8 +14,10 @@ export function ViewToggles({ viewMode, setViewMode, mapStyle, setMapStyle }: {
         <button onClick={() => setViewMode("heatmap")} className={viewMode === "heatmap" ? "text-cyber-glow" : "text-white/60"}>Heatmap</button>
       </div>
       <div className="cyber-panel px-3 py-1">
-        {(["light","dark","satellite"] as MapStyle[]).map((m) => (
-          <button key={m} onClick={() => setMapStyle(m)} className={`mr-2 ${mapStyle === m ? "text-cyber-blue" : "text-white/60"}`}>{m}</button>
+        {(["light", "dark", "voyager"] as MapStyle[]).map((m) => (
+          <button key={m} onClick={() => setMapStyle(m)} className={`mr-2 ${mapStyle === m ? "text-cyber-blue" : "text-white/60"}`}>
+            {m === "voyager" ? "Voyager" : m}
+          </button>
         ))}
       </div>
     </div>

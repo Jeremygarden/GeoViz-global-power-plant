@@ -10,7 +10,7 @@ import type { PickingInfo } from "@deck.gl/core";
 const MAP_STYLES: Record<MapStyle, string> = {
   light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
   dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
-  satellite: "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json",
+  voyager: "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json",
 };
 
 export function MapPanel({ data, viewMode, mapStyle, onHover }: {

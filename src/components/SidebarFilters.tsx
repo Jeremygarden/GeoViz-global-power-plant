@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import type { Filters } from "../types";
 
 export function SidebarFilters({ filters, onChange, energyOptions, countryOptions }: {
@@ -10,6 +11,12 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
     const list = filters[key];
     const next = list.includes(value) ? list.filter((v) => v !== value) : [...list, value];
     onChange({ ...filters, [key]: next });
+  };
+
+  const debounceTimer = useRef<ReturnType<typeof setTimeout>>();
+  const handleCapacityChange = (val: [number, number]) => {
+    clearTimeout(debounceTimer.current);
+    debounceTimer.current = setTimeout(() => onChange({ ...filters, capacityRange: val }), 300);
   };
 
   return (
@@ -32,7 +39,7 @@ export function SidebarFilters({ filters, onChange, energyOptions, countryOption
           min={0}
           max={5000}
           value={filters.capacityRange[1]}
-          onChange={(e) => onChange({ ...filters, capacityRange: [0, Number(e.target.value)] })}
+          onChange={(e) => handleCapacityChange([0, Number(e.target.value)])}
           className="w-full"
         />
       </div>

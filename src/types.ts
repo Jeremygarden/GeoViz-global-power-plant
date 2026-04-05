@@ -14,4 +14,4 @@ export type Filters = {
 };
 
 export type ViewMode = "scatter" | "heatmap";
-export type MapStyle = "light" | "dark" | "satellite";
+export type MapStyle = "light" | "dark" | "voyager";
