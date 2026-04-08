@@ -2,7 +2,15 @@
 
 An interactive map dashboard visualizing the [Global Power Plant Database](https://github.com/wri/global-power-plant-database) — ~35,000 power plants worldwide, filterable by energy type, country, and capacity.
 
-**Live:** [Deployed on Vercel](https://github.com/Jeremygarden/GeoViz-global-power-plant)
+**Live:** [Deployed on Vercel](https://geo-viz-global-power-plant.vercel.app)
+
+---
+
+## Preview
+
+| Scatter Mode (EN) | Heatmap Mode (中文) |
+|---|---|
+| ![Scatter view showing global power plants as bubbles](docs/screenshots/screenshot-scatter-en.png) | ![Heatmap view focused on Asia with Chinese UI](docs/screenshots/screenshot-heatmap-zh.png) |
 
 ---
 
